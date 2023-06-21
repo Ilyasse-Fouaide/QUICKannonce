@@ -131,7 +131,7 @@
     <div class="d-flex justify-content-between align-items-center text-light blue-800" style="padding: 2px 18px;">
       <div class="col-8" style="text-decoration: underline;">Panel Membre</div>
       <div class="col" style="text-align: right;">
-        <a href="#" class="text-light" style="text-decoration: underline;">Welome {{ auth()->user()->username }}</a>
+        <a href="{{ route('auth.profile') }}" class="text-light" style="text-decoration: underline;">Welome {{ auth()->user()->username }}</a>
       </div>
       <div class="col" style="text-align: right;">
         <form action="{{ route('auth.logout') }}" method="post">
@@ -144,7 +144,7 @@
     <div class="d-flex justify-content-between align-items-center text-light blue-800" style="padding: 2px 18px;">
       <div class="col-8" style="text-decoration: underline;">Panel admin</div>
       <div class="col" style="text-align: right;">
-        <a href="#" class="text-light" style="text-decoration: underline;">Welome Mr.{{ auth()->user()->username }}</a>
+        <a href="{{ route('auth.profile') }}" class="text-light" style="text-decoration: underline;">Welome Mr.{{ auth()->user()->username }}</a>
       </div>
       <div class="col" style="text-align: right;">
         <form action="{{ route('auth.logout') }}" method="post">

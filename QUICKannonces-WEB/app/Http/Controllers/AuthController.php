@@ -60,6 +60,11 @@ class AuthController extends Controller
         return redirect()->route('auth.showLoginForm')->with('error', 'Invalid Credentials!');
     }
 
+    public function profile()
+    {
+        return view('auth.profile');
+    }
+
     public function logout()
     {
         Auth::logout();

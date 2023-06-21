@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/annonce', AnnonceController::class);
 
+    Route::get('/profile', [AuthController::class, 'profile'])
+        ->name('auth.profile');
+
     Route::get('/annonces', [AnnonceController::class, "all"])
         ->name('annonce.all')
         ->middleware('admin');
