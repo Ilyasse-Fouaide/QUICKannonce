@@ -174,10 +174,11 @@
         <!-- // ! LOGO -->
         @include('icons.quick annonces-01-01')
       </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Que recherchez-vouz?" />
-        <span class="input-group-text" style="background-color: #cfe2ff;">Rechercher</span>
-      </div>
+      <form action="{{ route('annonce.index') }}" method="GET" class="input-group mb-3">
+        @csrf
+        <input type="text" class="form-control" placeholder="Que recherchez-vouz?" name="search" value="{{ request()->search }}" />
+        <button type="submit" class="input-group-text" style="background-color: #cfe2ff;">Rechercher</button>
+      </form>
       <div>
         <a href="{{ route('annonce.create') }}">
           <!-- // ! LOGO -->

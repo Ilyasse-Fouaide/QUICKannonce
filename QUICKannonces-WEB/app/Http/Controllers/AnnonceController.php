@@ -15,15 +15,13 @@ class AnnonceController extends Controller
      */
     public function index(Request $request)
     {
-        // Retrieve the filter values from the request
         $category = $request->input('category');
         $ville = $request->input('ville');
         $sortBy = $request->input('sort_by');
+        $search = $request->input('search');
 
-        // Start building the query to retrieve annonces
         $query = Annonce::query();
 
-        // Apply filters based on the selected options
         if ($category) {
             $query->whereHas('category', function ($categoryQuery) use ($category) {
                 $categoryQuery->where('nom_category', $category);
@@ -35,22 +33,19 @@ class AnnonceController extends Controller
                 $villeQuery->where('nom_ville', $ville);
             });
         }
-
-        // Apply sorting based on the selected option
         if ($sortBy === 'price') {
             $query->orderBy('price');
         } elseif ($sortBy === 'title') {
             $query->orderBy('title');
         }
 
-        // Retrieve the filtered annonces with pagination
-        $annonces = $query->paginate(10);
+        if ($search) {
+            $query->where('title', 'LIKE', '%' . $search . '%');
+        }
 
-        // Retrieve all categories and villes for the filter dropdowns
+        $annonces = $query->paginate(10);
         $categories = Category::all();
         $villes = Ville::all();
-
-        // Pass the filtered annonces and other variables to the view
 
         return view('annonces.index', compact('annonces', 'categories', 'villes'));
     }

@@ -39,6 +39,7 @@
     <form action="{{ route('annonce.index') }}" method="get">
       @csrf
       <div class="row align-items-center">
+
         <!-- Category Filter -->
         <div class="col form-group">
           <select name="category" id="category" class="form-control">
