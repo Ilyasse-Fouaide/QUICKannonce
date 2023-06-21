@@ -136,7 +136,7 @@
       <div class="col" style="text-align: right;">
         <form action="{{ route('auth.logout') }}" method="post">
           @csrf
-          <!-- <button type="submit" class="btn btn-outline-danger">Logout</button> -->
+          <button type="submit" class="btn text-light" style="text-decoration: underline;">Deconexion</button>
         </form>
       </div>
     </div>
@@ -149,7 +149,7 @@
       <div class="col" style="text-align: right;">
         <form action="{{ route('auth.logout') }}" method="post">
           @csrf
-          <!-- <button type="submit" class="btn btn-outline-danger">Logout</button> -->
+          <button type="submit" class="btn text-light" style="text-decoration: underline;">Deconexion</button>
         </form>
       </div>
     </div>

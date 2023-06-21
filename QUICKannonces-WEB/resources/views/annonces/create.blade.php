@@ -6,7 +6,7 @@
   <div>Bienvenu {{ auth()->user()->username }}</div>
   <form action="{{ route('auth.logout') }}" method="post">
     @csrf
-    <button type="submit" class="btn btn-danger">Deconexion</button>
+    <button type="submit" class="btn text-dark" style="text-decoration: underline;">Deconexion</button>
   </form>
 </div>
 
