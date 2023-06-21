@@ -34,7 +34,7 @@ class AnnonceController extends Controller
             });
         }
         if ($sortBy === 'price') {
-            $query->orderBy('price');
+            $query->orderBy('price', 'desc');
         } elseif ($sortBy === 'title') {
             $query->orderBy('title');
         }
