@@ -2,18 +2,17 @@
 
 @section('content')
 
+<div class="row mb-2">
+  @auth
+  <div>
+    <a href="#">Mes Annonces</a>
+  </div>
+  @endauth
+</div>
+
 <div class="row">
 
   <div class="col-3">
-    @auth
-    <div>
-      <a href="#">Mes Annonces</a>
-    </div>
-    @else
-    <div>
-      <a href="{{ route('auth.showLoginForm') }}" class="btn btn-outline-primary form-control">Se Connecter</a>
-    </div>
-    @endauth
     <div>
       @auth
       @if (auth()->user()->role === "admin")
@@ -21,6 +20,8 @@
       @elseif (auth()->user()->role === "user")
       @include('layouts.user.sidebar')
       @endif
+      @else
+      @include('layouts.user.sidebar')
       @endauth
     </div>
   </div>

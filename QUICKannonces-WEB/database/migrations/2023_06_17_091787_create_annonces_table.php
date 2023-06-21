@@ -22,15 +22,19 @@ return new class extends Migration
             $table->unsignedBigInteger("user");
             $table->unsignedBigInteger("category_id");
             $table->unsignedBigInteger("ville_id");
+
             $table->enum('status', ['pending', 'valid', 'refuse'])
                 ->default('pending');
+
             $table->foreign("user")->references("id")->on("users")
                 ->onUpdate('cascade');
 
             $table->foreign("category_id")->references("id")->on("categories")
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign("ville_id")->references("id")->on("villes")
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->timestamps();

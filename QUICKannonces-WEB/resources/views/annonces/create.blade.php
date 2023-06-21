@@ -2,15 +2,16 @@
 
 @section('content')
 
+<div class="mb-2" style="display: flex; align-items: center; gap: 10px">
+  <div>Bienvenu {{ auth()->user()->username }}</div>
+  <form action="{{ route('auth.logout') }}" method="post">
+    @csrf
+    <button type="submit" class="btn btn-danger">Deconexion</button>
+  </form>
+</div>
+
 <div class="row">
   <div class="col-3">
-    <div>
-      <p>Bienvenu {{ auth()->user()->username }}</p>
-      <form action="{{ route('auth.logout') }}" method="post">
-        @csrf
-        <button type="submit" class="btn btn-danger">Deconexion</button>
-      </form>
-    </div>
     <div>
       @if (auth()->user()->role === "admin")
       @include('layouts.admin.sidebar')
@@ -19,7 +20,7 @@
       @endif
     </div>
   </div>
-  <div class="col-7">
+  <div class="col-6">
     <form action="{{ route('annonce.store') }}" method="post" enctype="multipart/form-data">
       @csrf
 

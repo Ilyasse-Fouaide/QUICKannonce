@@ -26,7 +26,7 @@ class AuthController extends Controller
             'prenom' => ['required'],
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'password' => 'required|same:password',
+            'comfirm_password' => 'required|same:password',
             'telephone' => ['required', 'string'],
             'gender' => ['required']
         ]);

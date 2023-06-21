@@ -2,12 +2,15 @@
 
 @section('content')
 
+<div class="row mb-2">
+  <div>
+    <a href="#">Mes Annonces</a>
+  </div>
+</div>
+
 <div class="row">
 
   <div class="col-3">
-    <div>
-      <a href="#">Mes Annonces</a>
-    </div>
     <div>
       @include('layouts.admin.sidebar')
     </div>

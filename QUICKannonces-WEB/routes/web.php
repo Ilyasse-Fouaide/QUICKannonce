@@ -76,3 +76,7 @@ Route::post('/login', [AuthController::class, 'login'])
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('auth.logout');
+
+Route::fallback(function () {
+    return view('404');
+});
