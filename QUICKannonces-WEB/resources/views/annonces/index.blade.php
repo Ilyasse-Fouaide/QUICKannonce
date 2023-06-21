@@ -37,13 +37,16 @@
     @endif
     <hr>
     <form action="{{ route('annonce.index') }}" method="get">
+      @csrf
       <div class="row align-items-center">
         <!-- Category Filter -->
         <div class="col form-group">
           <select name="category" id="category" class="form-control">
             <option value="">All Categories</option>
             @foreach ($categories as $category)
-            <option value="{{ $category->nom_category }}">{{ $category->nom_category }}</option>
+            <option value="{{ $category->nom_category }}" {{ $category->nom_category === request()->input('category') ? 'selected' : '' }}>
+              {{ $category->nom_category }}
+            </option>
             @endforeach
           </select>
         </div>
@@ -53,7 +56,9 @@
           <select name="ville" id="ville" class="form-control">
             <option value="">All Cities</option>
             @foreach ($villes as $ville)
-            <option value="{{ $ville->nom_ville }}">{{ $ville->nom_ville }}</option>
+            <option value="{{ $ville->nom_ville }}" {{ $ville->nom_ville === request()->input('ville') ? 'selected' : '' }}>
+              {{ $ville->nom_ville }}
+            </option>
             @endforeach
           </select>
         </div>
@@ -61,7 +66,7 @@
         <!-- Order By -->
         <div class="col form-group">
           <select name="sort_by" id="sort_by" class="form-control">
-            <option value="">Default</option>
+            <option value="" hidden>Sort By</option>
             <option value="price">Price</option>
             <option value="title">Title</option>
           </select>
@@ -73,6 +78,7 @@
         </div>
 
       </div>
+      <input type="hidden" name="page" value="{{ $annonces->currentPage() }}">
     </form>
     <hr>
     <div>

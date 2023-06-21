@@ -15,34 +15,42 @@ class AnnonceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Annonce::query()->with('ville', 'category')->where('status', 'valid');
+        // Retrieve the filter values from the request
+        $category = $request->input('category');
+        $ville = $request->input('ville');
+        $sortBy = $request->input('sort_by');
 
-        if ($request->has('category')) {
-            $category = $request->input('category');
-            $query->whereHas('category', function ($q) use ($category) {
-                $q->where('nom_category', $category);
+        // Start building the query to retrieve annonces
+        $query = Annonce::query();
+
+        // Apply filters based on the selected options
+        if ($category) {
+            $query->whereHas('category', function ($categoryQuery) use ($category) {
+                $categoryQuery->where('nom_category', $category);
             });
         }
 
-        if ($request->has('ville')) {
-            $ville = $request->input('ville');
-            $query->whereHas('ville', function ($q) use ($ville) {
-                $q->where('nom_ville', $ville);
+        if ($ville) {
+            $query->whereHas('ville', function ($villeQuery) use ($ville) {
+                $villeQuery->where('nom_ville', $ville);
             });
         }
 
-        if ($request->has('sort_by')) {
-            $sortBy = $request->input('sort_by');
-            if ($sortBy === 'price') {
-                $query->orderBy('price');
-            } elseif ($sortBy === 'title') {
-                $query->orderBy('title');
-            }
+        // Apply sorting based on the selected option
+        if ($sortBy === 'price') {
+            $query->orderBy('price');
+        } elseif ($sortBy === 'title') {
+            $query->orderBy('title');
         }
 
-        $annonces = $query->simplePaginate(8);
+        // Retrieve the filtered annonces with pagination
+        $annonces = $query->paginate(10);
+
+        // Retrieve all categories and villes for the filter dropdowns
         $categories = Category::all();
         $villes = Ville::all();
+
+        // Pass the filtered annonces and other variables to the view
 
         return view('annonces.index', compact('annonces', 'categories', 'villes'));
     }
