@@ -35,7 +35,7 @@ class VilleController extends Controller
         $ville->nom_ville = $request->nom_ville;
         $ville->save();
 
-        return redirect()->route('ville.index');
+        return redirect()->route('ville.index')->with('message', 'Ville Added Successfuly.');
     }
 
     /**

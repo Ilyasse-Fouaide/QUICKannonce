@@ -35,7 +35,7 @@ class CategoryController extends Controller
         $category->nom_category = $request->nom_category;
         $category->save();
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('message', 'Category Added Successfuly.');
     }
 
     /**

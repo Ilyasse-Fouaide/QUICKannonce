@@ -15,7 +15,7 @@
 
   <div class="row mb-2">
     <div class="col">
-      <input type="text" class="form-control" placeholder="votre nom d'utilisateur..." name="usernamel" value="{{ session('username') }}">
+      <input type="text" class="form-control" placeholder="votre nom d'utilisateur..." name="usernamel" value="{{ old('usernamel') }}">
       @error('usernamel')
       <div class="text-danger" style="font-size: small;">{{ $message }}</div>
       @enderror
@@ -24,7 +24,7 @@
 
   <div class="row mb-2">
     <div class="col">
-      <input type="password" class="form-control" placeholder="votre mot de passe..." name="passwordl">
+      <input type="password" class="form-control" placeholder="votre mot de passe..." name="passwordl" value="{{ old('passwordl') }}">
       @error('passwordl')
       <div class="text-danger" style="font-size: small;">{{ $message }}</div>
       @enderror

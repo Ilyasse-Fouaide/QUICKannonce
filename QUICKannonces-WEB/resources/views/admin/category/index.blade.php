@@ -19,6 +19,14 @@
   <div class="col">
     @include('admin.panel')
     <div>
+      @if (session('message'))
+      <div class="alert alert-success">
+        {{ session('message') }}
+      </div>
+      @endif
+      <div>
+        <a href="{{ route('category.create') }}" class="text-primary">Add Category</a>
+      </div>
       <table class="table">
         <thead>
           <tr class="text-center">
