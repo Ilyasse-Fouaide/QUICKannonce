@@ -22,10 +22,6 @@ function Create() {
   const [cat, setCat] = useState([]);
   const [vil, setVil] = useState([]);
 
-  if (error?.status === 401) {
-    window.location.href = '/sign-up'
-  }
-
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/admin/category', {
       headers: {
@@ -48,6 +44,14 @@ function Create() {
         setVil(response.data);
       });
   }, []);
+
+  if (error?.status === 401) {
+    window.location.href = '/'
+  }
+
+  if (user?.role !== "admin") {
+    window.location.href = '/'
+  }
 
   function save(e) {
     e.preventDefault();

@@ -36,7 +36,7 @@ function Register() {
         window.location.href = '/sign-up'
       })
       .catch((error) => {
-        console.log(error.response.data);
+        alert('You have some Error try again : ' + error.response.data.message)
       });
   }
 

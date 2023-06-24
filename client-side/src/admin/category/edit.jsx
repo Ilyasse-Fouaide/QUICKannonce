@@ -24,10 +24,6 @@ function Edit() {
     })
   }, []);
 
-  if (loading) {
-    return "Loading..."
-  }
-
   if (error?.status === 401) {
     window.location.href = '/'
   }

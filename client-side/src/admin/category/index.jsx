@@ -23,10 +23,6 @@ function Index() {
     })
   }, []);
 
-  if (loading) {
-    return "Loadong..."
-  }
-
   if (error?.status === 401) {
     window.location.href = '/'
   }

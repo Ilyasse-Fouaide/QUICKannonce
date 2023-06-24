@@ -36,7 +36,7 @@ function App() {
     <>
       <div style={{ width: "80%", margin: "auto" }}>
 
-        {localStorage.getItem('access_token') ? (
+        {localStorage.getItem('access_token') && (
           <>
             {user?.role === "user" &&
               <>
@@ -68,7 +68,9 @@ function App() {
               </>
             }
           </>
-        ) : <>
+        )}
+
+        {!localStorage.getItem('access_token') && <>
           {/* // ! if user not authentified */}
           <div className="d-flex justify-content-between align-items-center text-light blue-800" style={{ padding: "2px 18px;" }}>
             <div className="col-8" style={{ textDecoration: "underline;" }}>
@@ -83,9 +85,6 @@ function App() {
             </div>
           </div>
         </>}
-
-
-
 
         <div className="d-flex justify-content-between align-items-center mt-4" style={{ gap: "50px" }}>
           <div>

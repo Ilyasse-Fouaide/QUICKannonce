@@ -28,7 +28,7 @@ function Login() {
         window.location.href = '/'
       })
       .catch((error) => {
-        alert("You have somme error try again");
+        alert('You have some Error try again : ' + error.response.data.message)
       });
   }
 
