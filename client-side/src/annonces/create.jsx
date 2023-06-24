@@ -49,10 +49,6 @@ function Create() {
     window.location.href = '/'
   }
 
-  if (user?.role !== "admin") {
-    window.location.href = '/'
-  }
-
   function save(e) {
     e.preventDefault();
     const formData = {
