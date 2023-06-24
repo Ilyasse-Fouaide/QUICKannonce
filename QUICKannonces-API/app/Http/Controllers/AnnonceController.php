@@ -3,62 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
-use App\Models\Category;
 use App\Models\Image;
-use App\Models\Ville;
 use Illuminate\Http\Request;
 
 class AnnonceController extends Controller
 {
     /**
-     * Display a listing of the resource where annonce is valid.
+     * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $category = $request->input('category');
-        $ville = $request->input('ville');
-        $sortBy = $request->input('sort_by');
-        $search = $request->input('search');
-
-        $query = Annonce::query();
-
-        if ($category) {
-            $query->whereHas('category', function ($categoryQuery) use ($category) {
-                $categoryQuery->where('nom_category', $category);
-            });
-        }
-
-        if ($ville) {
-            $query->whereHas('ville', function ($villeQuery) use ($ville) {
-                $villeQuery->where('nom_ville', $ville);
-            });
-        }
-        if ($sortBy === 'price') {
-            $query->orderBy('price', 'desc');
-        } elseif ($sortBy === 'title') {
-            $query->orderBy('title');
-        }
-
-        if ($search) {
-            $query->where('title', 'LIKE', '%' . $search . '%');
-        }
-
-        $annonces = $query->where('status', 'valid')->paginate(10);
-        $categories = Category::all();
-        $villes = Ville::all();
-
-        return view('annonces.index', compact('annonces', 'categories', 'villes'));
+        $annonces = Annonce::with('ville', 'category', 'images')->where('status', 'valid')->get();
+        return response()->json($annonces, 200);
     }
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $categories = Category::all();
-        $villes = Ville::all();
-        return view('annonces.create', compact('categories', 'villes'));
+        //
     }
 
     /**
@@ -108,8 +72,7 @@ class AnnonceController extends Controller
             }
         }
 
-
-        return redirect()->route('annonce.index')->with('info', "Veuillez patienter pendant que l'administrateur valide votre annonce.");
+        return response()->json(['info' => "Veuillez patienter pendant que l'administrateur valide votre annonce."], 200);
     }
 
     /**
@@ -131,9 +94,10 @@ class AnnonceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Annonce $annonce)
+    public function update(Annonce $annonce)
     {
-        //
+        $annonce->update(['status' => 'valid']);
+        return response()->json(['message' => 'Annonce validated successfully.'], 200);
     }
 
     /**
@@ -141,33 +105,19 @@ class AnnonceController extends Controller
      */
     public function destroy(Annonce $annonce)
     {
-        //
-    }
-
-    /**
-     * Display a listing of the resource where annonce is pending.
-     */
-    public function pendingAnnonce()
-    {
-        $annonces = Annonce::with('ville', 'category')->where('status', 'pending')->get();
-        return view('admin.annonces.index', compact('annonces'));
-    }
-
-    public function validAnnonce(Annonce $annonce)
-    {
-        $annonce->update(['status' => 'valid']);
-        return back()->with('success', 'Annonce validated successfully.');
+        $annonce->delete();
+        return response()->json(['message' => "Annonce Deleted Successfuly."], 200);
     }
 
     public function all()
     {
-        $annonces = Annonce::latest()->simplePaginate(10);
-        return view('admin.annonces.all', compact('annonces'));
+        $annonce = Annonce::with('ville', 'category', 'images')->get();
+        return response()->json($annonce, 200);
     }
 
-    public function delete(Annonce $annonce)
+    public function pendingAnnonce()
     {
-        $annonce->delete();
-        return back();
+        $annonces = Annonce::with('ville', 'category', 'images')->where('status', 'pending')->get();
+        return response()->json($annonces, 200);
     }
 }
